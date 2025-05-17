@@ -1,4 +1,5 @@
 #include "snake.h"
+#include "position.h"
 #include "raylib.h"
 
 void Snake::handle_input()
@@ -40,11 +41,25 @@ void Snake::move_snake()
     {
         posX += speed;
     }
+
+    Position prevPos = segments[0];
+    segments[0].x = posX;
+    segments[0].y = posY;
+
+    for (int i = 1; i < segments.size(); i++)
+    {
+        Position currentPos = segments[i];
+        segments[i] = prevPos;
+        prevPos = currentPos;
+    }
 }
 
 void Snake::draw_snake()
 {
-    DrawRectangle(posX, posY, 20, 20, GREEN);
+    for (auto s : segments)
+    {
+        DrawRectangle(s.x, s.y, 20, 20, GREEN);
+    }
 }
 
 Rectangle Snake::get_rect()

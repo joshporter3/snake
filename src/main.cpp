@@ -1,4 +1,5 @@
 #include "apple.h"
+#include "position.h"
 #include "raylib.h"
 #include "snake.h"
 #include <random>
@@ -15,6 +16,7 @@ int main()
     float time_since_last_move = 0.0f;
 
     Snake s = {400, 200, Right};
+    s.segments.push_back(Position{400, 200});
     Apple a = {600, 200};
 
     std::random_device rd;
@@ -28,6 +30,7 @@ int main()
 
         s.handle_input();
         time_since_last_move += GetFrameTime();
+        Position tail_pos = s.segments.back();
         if (time_since_last_move >= move_interval)
         {
             s.move_snake();
@@ -37,6 +40,7 @@ int main()
         if (collision)
         {
             a.move_apple(gen);
+            s.segments.push_back(tail_pos);
         }
         s.draw_snake();
         a.draw_apple();

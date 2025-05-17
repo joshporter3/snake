@@ -1,7 +1,10 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
+#include "position.h"
 #include "raylib.h"
+#include <vector>
+
 enum Direction
 {
     Up,
@@ -15,6 +18,7 @@ struct Snake
     float posX;
     float posY;
     Direction dir;
+    std::vector<Position> segments;
 
     void handle_input();
     void move_snake();
