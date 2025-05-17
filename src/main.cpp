@@ -1,5 +1,7 @@
+#include "apple.h"
 #include "raylib.h"
 #include "snake.h"
+#include <random>
 
 int main()
 {
@@ -12,7 +14,11 @@ int main()
     float move_interval = 0.10f;
     float time_since_last_move = 0.0f;
 
-    Snake s = {400, 200, Left};
+    Snake s = {400, 200, Right};
+    Apple a = {600, 200};
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
 
     while (!WindowShouldClose())
     {
@@ -27,7 +33,13 @@ int main()
             s.move_snake();
             time_since_last_move = 0.0f;
         }
+        bool collision = CheckCollisionRecs(s.get_rect(), a.get_rect());
+        if (collision)
+        {
+            a.move_apple(gen);
+        }
         s.draw_snake();
+        a.draw_apple();
 
         EndDrawing();
     }

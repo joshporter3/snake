@@ -5,6 +5,7 @@ project(snake)
 set(SOURCES
     src/main.cpp
     src/snake.cpp
+    src/apple.cpp
 )
 
 add_executable(snake ${SOURCES})
