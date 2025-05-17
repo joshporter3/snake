@@ -46,3 +46,8 @@ void Snake::draw_snake()
 {
     DrawRectangle(posX, posY, 20, 20, GREEN);
 }
+
+Rectangle Snake::get_rect()
+{
+    return {posX, posY, 20, 20};
+}
